@@ -1,0 +1,16 @@
+FROM openjdk:17-jdk
+
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+
+#Create a directory where the application will reside
+RUN mkdir /spring-boot-app
+WORKDIR /spring-boot-app
+
+#Copy the executable jar file
+COPY target/spring-boot-app.jar spring-boot-app.jar
+
+# Expose the port
+EXPOSE 8080
+
+# Run the jar file
+ENTRYPOINT ["java","-jar","spring-boot-app.jar"]
