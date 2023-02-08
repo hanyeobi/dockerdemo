@@ -1,16 +1,11 @@
-FROM openjdk:17-jdk
+FROM openjdk:11-alpine
 
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+WORKDIR /app
 
-#Create a directory where the application will reside
-RUN mkdir /spring-boot-app
-WORKDIR /spring-boot-app
+COPY . .
 
-#Copy the executable jar file
-COPY target/spring-boot-app.jar spring-boot-app.jar
+RUN apk add --no-cache maven
 
-# Expose the port
-EXPOSE 8080
+RUN mvn clean install
 
-# Run the jar file
-ENTRYPOINT ["java","-jar","spring-boot-app.jar"]
+CMD ["java", "-jar", "target/your-app.jar"]
